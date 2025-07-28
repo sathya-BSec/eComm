@@ -104,6 +104,31 @@ export const authAPI = {
     return response.data;
   },
 
+  sendOTP: async (contact: string, method: 'email' | 'sms') => {
+    const response = await api.post('/api/auth/send-otp', {
+      contact,
+      method
+    });
+    return response.data;
+  },
+
+  verifyOTP: async (contact: string, method: 'email' | 'sms', otp: string) => {
+    const response = await api.post('/api/auth/verify-otp', {
+      contact,
+      method,
+      otp
+    });
+    return response.data;
+  },
+
+  socialAuth: async (provider: string, token: string) => {
+    const response = await api.post('/api/auth/social-auth', {
+      provider,
+      token
+    });
+    return response.data;
+  },
+
   getProfile: async (): Promise<User> => {
     const response = await api.get('/api/auth/me');
     return response.data;

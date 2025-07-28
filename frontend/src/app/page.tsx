@@ -1,156 +1,199 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Star, ShoppingBag } from 'lucide-react';
-import { Product, productsAPI } from '@/lib/api';
-import ProductCard from '@/components/ProductCard';
+import { ArrowRight, Star, Shield, Truck, Headphones, CheckCircle } from 'lucide-react';
 
-const HomePage: React.FC = () => {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadFeaturedProducts();
-  }, []);
-
-  const loadFeaturedProducts = async () => {
-    try {
-      const products = await productsAPI.getProducts({ limit: 8 });
-      setFeaturedProducts(products);
-    } catch (error) {
-      console.error('Failed to load featured products:', error);
-    } finally {
-      setLoading(false);
+const LandingPage: React.FC = () => {
+  const features = [
+    {
+      icon: <Shield className="h-8 w-8 text-blue-600" />,
+      title: "Secure Shopping",
+      description: "Your data and payments are protected with enterprise-grade security"
+    },
+    {
+      icon: <Truck className="h-8 w-8 text-green-600" />,
+      title: "Fast Delivery",
+      description: "Free shipping on orders over $50 with express delivery options"
+    },
+    {
+      icon: <Headphones className="h-8 w-8 text-purple-600" />,
+      title: "24/7 Support",
+      description: "Round-the-clock customer support to help with any questions"
+    },
+    {
+      icon: <CheckCircle className="h-8 w-8 text-indigo-600" />,
+      title: "Quality Guarantee",
+      description: "30-day money-back guarantee on all products"
     }
-  };
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      rating: 5,
+      comment: "Amazing shopping experience! Fast delivery and great quality products.",
+      avatar: "SJ"
+    },
+    {
+      name: "Mike Chen",
+      rating: 5,
+      comment: "The best online store I've used. Highly recommend to everyone!",
+      avatar: "MC"
+    },
+    {
+      name: "Emily Davis",
+      rating: 5,
+      comment: "Excellent customer service and hassle-free returns. Love it!",
+      avatar: "ED"
+    }
+  ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Welcome to E-Store
+              Shop the Future
+              <span className="block text-yellow-300">Today</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              Discover amazing products at unbeatable prices
+            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+              Discover amazing products, unbeatable prices, and exceptional service. 
+              Your perfect shopping experience starts here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/products"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center"
+                className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-300 transition-colors flex items-center justify-center"
               >
-                Shop Now
+                Start Shopping
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
-                href="/categories"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                href="#features"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
               >
-                Browse Categories
+                Learn More
               </Link>
             </div>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent"></div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section id="features" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingBag className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Free Shipping</h3>
-              <p className="text-gray-600">Free shipping on all orders over $50</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Quality Products</h3>
-              <p className="text-gray-600">Only the best products from trusted brands</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ArrowRight className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
-              <p className="text-gray-600">Quick and reliable delivery service</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Featured Products
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Us?
             </h2>
-            <p className="text-lg text-gray-600">
-              Check out our most popular products
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              We're committed to providing the best shopping experience with features that matter to you.
             </p>
           </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...Array(8)].map((_, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-4 animate-pulse">
-                  <div className="bg-gray-300 h-48 rounded-lg mb-4"></div>
-                  <div className="bg-gray-300 h-4 rounded mb-2"></div>
-                  <div className="bg-gray-300 h-4 rounded w-3/4 mb-2"></div>
-                  <div className="bg-gray-300 h-6 rounded w-1/2"></div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-
-          <div className="text-center mt-12">
-            <Link
-              href="/products"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center"
-            >
-              View All Products
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated
-          </h2>
-          <p className="text-xl mb-8 text-gray-300">
-            Subscribe to our newsletter for the latest deals and updates
-          </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="bg-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Subscribe
-            </button>
+      {/* Categories Preview */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Shop by Category
+            </h2>
+            <p className="text-xl text-gray-600">
+              Find exactly what you're looking for in our curated collections.
+            </p>
           </div>
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {[
+              { name: "Electronics", image: "📱", color: "bg-blue-100" },
+              { name: "Clothing", image: "👕", color: "bg-purple-100" },
+              { name: "Books", image: "📚", color: "bg-green-100" },
+              { name: "Home & Garden", image: "🏠", color: "bg-yellow-100" },
+              { name: "Sports", image: "⚽", color: "bg-red-100" }
+            ].map((category, index) => (
+              <Link
+                key={index}
+                href="/products"
+                className={`${category.color} p-8 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer`}
+              >
+                <div className="text-4xl mb-4">{category.image}</div>
+                <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              What Our Customers Say
+            </h2>
+            <p className="text-xl text-gray-600">
+              Don't just take our word for it - hear from our satisfied customers.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    <div className="flex">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-600 italic">"{testimonial.comment}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-700 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Start Shopping?
+          </h2>
+          <p className="text-xl mb-8 text-indigo-100">
+            Join thousands of satisfied customers and discover your new favorite products today.
+          </p>
+          <Link
+            href="/products"
+            className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-yellow-300 transition-colors inline-flex items-center"
+          >
+            Browse Products
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
         </div>
       </section>
     </div>
   );
 };
 
-export default HomePage;
+export default LandingPage;

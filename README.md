@@ -7,11 +7,17 @@ A modern full-stack e-commerce web application built with Next.js, Python FastAP
 - **Frontend**: Modern React/Next.js with TypeScript and Tailwind CSS
 - **Backend**: Python FastAPI with SQLAlchemy ORM
 - **Database**: MySQL with full CRUD operations
-- **Authentication**: JWT-based auth with secure password hashing
+- **Authentication**: 
+  - JWT-based auth with secure password hashing
+  - Social login (Google, Facebook, Instagram, Apple)
+  - Email OTP verification
+  - Mobile SMS OTP verification
 - **Payment**: Stripe integration for payments
 - **Modern UI**: Responsive design with Tailwind CSS
 - **Real-time**: Shopping cart functionality
 - **Admin Panel**: Product and order management
+- **Landing Page**: Separate marketing landing page
+- **Login-on-Demand**: Users only need to login when ordering
 
 ## 🛠️ Tech Stack
 
